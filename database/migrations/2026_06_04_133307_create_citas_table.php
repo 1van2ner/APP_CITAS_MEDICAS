@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('fecha');
+            $table->string('motivo');
+            $table->foreignId('paciente_id')->constrained('pacientes');
+            $table->foreignId('medico_id')->constrained('medicos');
+            $table->string('estado');
+            $table->text('observaciones');
+            $table->string('sala');
             $table->timestamps();
         });
     }

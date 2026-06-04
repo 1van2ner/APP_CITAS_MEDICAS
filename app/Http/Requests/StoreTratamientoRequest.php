@@ -12,7 +12,7 @@ class StoreTratamientoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;   
     }
 
     /**
@@ -23,7 +23,13 @@ class StoreTratamientoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+        'nombre'                        => 'required|string|max:255',
+        'descripcion'                   => 'required|text',
+        'duracion'                      => 'required|string|max:255',
+        'diagnostico_id'                => 'required|integer|exists:diagnosticos,diagnostico_id',
+        'medico_id'                     => 'required|integer|exists:medicos,medico_id',
+        'estado'                        => 'required|string|max:255',
+        'frecuencia_administracion'     => 'required|string|max:255'
         ];
     }
 }
