@@ -20,21 +20,22 @@
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Tratamiento</label>
+                        <select name="tratamiento_id" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                            <option value="">Seleccionar tratamiento...</option>
+                            @foreach($tratamientos as $tratamiento)
+                                <option value="{{ $tratamiento->id }}" {{ old('tratamiento_id', $medicamento->tratamiento_id) == $tratamiento->id ? 'selected' : '' }}>
+                                    {{ $tratamiento->nombre }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('tratamiento_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Nombre</label>
                         <input type="text" name="nombre" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('nombre', $medicamento->nombre) }}">
                         @error('nombre') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Principio Activo</label>
-                        <input type="text" name="principio_activo" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('principio_activo', $medicamento->principio_activo) }}">
-                        @error('principio_activo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Presentación</label>
-                        <input type="text" name="presentacion" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('presentacion', $medicamento->presentacion) }}">
-                        @error('presentacion') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
@@ -44,27 +45,27 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Fabricante</label>
-                        <input type="text" name="fabricante" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('fabricante', $medicamento->fabricante) }}">
-                        @error('fabricante') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Frecuencia</label>
+                        <input type="text" name="frecuencia" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('frecuencia', $medicamento->frecuencia) }}">
+                        @error('frecuencia') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Lote</label>
-                        <input type="text" name="lote" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('lote', $medicamento->lote) }}">
-                        @error('lote') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Duración</label>
+                        <input type="text" name="duracion" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('duracion', $medicamento->duracion) }}">
+                        @error('duracion') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Fecha de Vencimiento</label>
-                        <input type="date" name="fecha_vencimiento" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('fecha_vencimiento', $medicamento->fecha_vencimiento->format('Y-m-d')) }}">
-                        @error('fecha_vencimiento') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Proveedor</label>
+                        <input type="text" name="proveedor" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('proveedor', $medicamento->proveedor) }}">
+                        @error('proveedor') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Precio</label>
-                        <input type="number" name="precio" required step="0.01" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" value="{{ old('precio', $medicamento->precio) }}">
-                        @error('precio') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Efectos secundarios</label>
+                        <textarea name="efectos_secundarios" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">{{ old('efectos_secundarios', $medicamento->efectos_secundarios) }}</textarea>
+                        @error('efectos_secundarios') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                 </div>
 

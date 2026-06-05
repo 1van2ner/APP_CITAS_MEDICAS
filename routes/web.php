@@ -48,10 +48,4 @@ Route::middleware('auth')->group(function () {
     
     // Medicamentos CRUD
     Route::resource('medicamentos', MedicamentoController::class);
-
-
-    // En routes/web.php
-Route::post('/medicamentos', [App\Http\Controllers\Web\MedicamentoController::class, 'store'])->name('medicamentos.store');
-
-Route::post('/tratamientos', [App\Http\Controllers\Web\TratamientoController::class, 'store'])->name('tratamientos.store');
 });

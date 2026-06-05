@@ -20,6 +20,7 @@
                 {{-- Campos ocultos necesarios para evitar errores de integridad en BD --}}
                 <input type="hidden" name="estado" value="pendiente">
                 <input type="hidden" name="sala" value="Consultorio 1">
+                <input type="hidden" name="observaciones" value="">
 
                 <div class="space-y-4">
                     {{-- Paciente --}}

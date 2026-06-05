@@ -42,7 +42,7 @@
                                     <td class="px-6 py-4 text-slate-900 font-semibold">{{ $cita->paciente->nombre }} {{ $cita->paciente->apellido }}</td>
                                     <td class="px-6 py-4 text-slate-600">{{ $cita->medico->nombre }}</td>
                                     <td class="px-6 py-4 text-slate-600">{{ $cita->fecha->format('d/m/Y') }}</td>
-                                    <td class="px-6 py-4 text-slate-600">{{ $cita->hora->format('H:i') }}</td>
+                                    <td class="px-6 py-4 text-slate-600">{{ $cita->fecha->format('H:i') }}</td>
                                     <td class="px-6 py-4 text-slate-600">{{ Str::limit($cita->motivo, 30) }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">

@@ -18,7 +18,7 @@ class TratamientoController extends Controller
 
     public function index()
     {
-        $tratamientos = Tratamiento::with(['diagnostico', 'medico'])->paginate(10);
+        $tratamientos = Tratamiento::with(['diagnostico.paciente', 'medico'])->paginate(10);
         return view('tratamientos.index', compact('tratamientos'));
     }
 

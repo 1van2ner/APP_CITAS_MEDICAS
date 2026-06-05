@@ -40,16 +40,14 @@
                             @foreach($medicamentos as $medicamento)
                                 <tr class="hover:bg-slate-50 transition">
                                     <td class="px-6 py-4 text-slate-900 font-semibold">{{ $medicamento->nombre }}</td>
-                                    <td class="px-6 py-4 text-slate-600">{{ $medicamento->principio_activo }}</td>
-                                    <td class="px-6 py-4 text-slate-600">{{ $medicamento->fabricante }}</td>
+                                    <td class="px-6 py-4 text-slate-600">{{ $medicamento->dosis }}</td>
+                                    <td class="px-6 py-4 text-slate-600">{{ optional($medicamento->tratamiento)->nombre ?? '-' }}</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-full text-xs font-semibold
-                                            @if($medicamento->fecha_vencimiento->isFuture()) bg-green-100 text-green-700
-                                            @else bg-red-100 text-red-700 @endif">
-                                            {{ $medicamento->fecha_vencimiento->format('d/m/Y') }}
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+                                            {{ $medicamento->duracion ?? '-' }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-600">${{ number_format($medicamento->precio, 2) }}</td>
+                                    <td class="px-6 py-4 text-slate-600">{{ $medicamento->proveedor ?? '-' }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
                                             <a href="{{ route('medicamentos.edit', $medicamento->id) }}" class="px-3 py-2 bg-amber-100 hover:bg-amber-200 text-amber-700 rounded-lg font-semibold transition">

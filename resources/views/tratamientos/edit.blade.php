@@ -20,15 +20,29 @@
 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Paciente</label>
-                        <select name="paciente_id" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            @foreach($pacientes as $paciente)
-                                <option value="{{ $paciente->id }}" {{ old('paciente_id', $tratamiento->paciente_id) == $paciente->id ? 'selected' : '' }}>
-                                    {{ $paciente->nombre }} {{ $paciente->apellido }}
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Diagnóstico</label>
+                        <select name="diagnostico_id" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="">Seleccionar diagnóstico...</option>
+                            @foreach($diagnosticos as $diagnostico)
+                                <option value="{{ $diagnostico->id }}" {{ old('diagnostico_id', $tratamiento->diagnostico_id) == $diagnostico->id ? 'selected' : '' }}>
+                                    {{ $diagnostico->tipo_diagnostico ?? (\Illuminate\Support\Str::limit($diagnostico->descripcion ?? '', 40) ?: 'Diagnóstico '.$diagnostico->id) }}
                                 </option>
                             @endforeach
                         </select>
-                        @error('paciente_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        @error('diagnostico_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Médico</label>
+                        <select name="medico_id" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="">Seleccionar médico...</option>
+                            @foreach($medicos as $medico)
+                                <option value="{{ $medico->id }}" {{ old('medico_id', $tratamiento->medico_id) == $medico->id ? 'selected' : '' }}>
+                                    {{ $medico->nombre }} ({{ $medico->especialidad }})
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('medico_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
@@ -45,15 +59,15 @@
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Fecha Inicio</label>
-                            <input type="date" name="fecha_inicio" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" value="{{ old('fecha_inicio', $tratamiento->fecha_inicio->format('Y-m-d')) }}">
-                            @error('fecha_inicio') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Duración</label>
+                            <input type="text" name="duracion" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" value="{{ old('duracion', $tratamiento->duracion) }}">
+                            @error('duracion') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Fecha Fin</label>
-                            <input type="date" name="fecha_fin" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" value="{{ old('fecha_fin', $tratamiento->fecha_fin->format('Y-m-d')) }}">
-                            @error('fecha_fin') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Frecuencia de administración</label>
+                            <input type="text" name="frecuencia_administracion" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" value="{{ old('frecuencia_administracion', $tratamiento->frecuencia_administracion) }}">
+                            @error('frecuencia_administracion') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                     </div>
 

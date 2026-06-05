@@ -40,6 +40,11 @@ class CitaController extends Controller
             'sala' => 'required|string|max:100',
         ]);
 
+        // Asegurar que la columna obligatoria 'observaciones' esté presente en el array
+        if (!array_key_exists('observaciones', $validated)) {
+            $validated['observaciones'] = '';
+        }
+
         Cita::create($validated);
 
         return redirect()->route('citas.index')

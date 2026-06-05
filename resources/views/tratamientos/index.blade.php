@@ -38,7 +38,7 @@
                         <tbody class="divide-y divide-slate-200">
                             @foreach($tratamientos as $tratamiento)
                                 <tr class="hover:bg-slate-50 transition">
-                                    <td class="px-6 py-4 text-slate-900 font-semibold">{{ $tratamiento->paciente->nombre }}</td>
+                                    <td class="px-6 py-4 text-slate-900 font-semibold">{{ optional(optional($tratamiento->diagnostico)->paciente)->nombre ?? '-' }} {{ optional(optional($tratamiento->diagnostico)->paciente)->apellido ?? '' }}</td>
                                     <td class="px-6 py-4 text-slate-600">{{ $tratamiento->nombre }}</td>
                                     <td class="px-6 py-4">
                                         <span class="px-3 py-1 rounded-full text-xs font-semibold
@@ -48,7 +48,7 @@
                                             {{ $tratamiento->estado }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-600">{{ $tratamiento->fecha_inicio->format('d/m/Y') }}</td>
+                                    <td class="px-6 py-4 text-slate-600">{{ $tratamiento->duracion ?? $tratamiento->created_at->format('d/m/Y') }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
                                             <a href="{{ route('tratamientos.edit', $tratamiento->id) }}" class="px-3 py-2 bg-amber-100 hover:bg-amber-200 text-amber-700 rounded-lg font-semibold transition">

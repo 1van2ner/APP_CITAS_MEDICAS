@@ -38,10 +38,15 @@ class MedicamentoController extends Controller
             'efectos_secundarios' => 'nullable|string',
         ]);
 
-        Medicamento::create($validated);
+        try {
+            Medicamento::create($validated);
 
-        return redirect()->route('medicamentos.index')
-            ->with('success', 'Medicamento creado exitosamente');
+            return redirect()->route('medicamentos.index')
+                ->with('success', 'Medicamento creado exitosamente');
+        } catch (\Exception $e) {
+            \Log::error('Medicamento store error: ' . $e->getMessage(), ['exception' => $e]);
+            return back()->withInput()->withErrors(['error' => 'Ocurrió un error al crear el medicamento. Revisa el log para más detalles.']);
+        }
     }
 
     public function edit(Medicamento $medicamento)
