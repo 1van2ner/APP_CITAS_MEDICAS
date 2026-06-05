@@ -78,9 +78,18 @@ class CitaController extends Controller
 
     public function destroy(Cita $cita)
     {
-        $cita->delete();
+        try {
+            $cita->delete();
 
-        return redirect()->route('citas.index')
-            ->with('success', 'Cita eliminada exitosamente');
+            return redirect()->route('citas.index')
+                ->with('success', 'Cita eliminada exitosamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle FK constraint violation
+            if ($e->getCode() == '23000') {
+                return redirect()->route('citas.index')
+                    ->with('error', 'No se puede eliminar esta cita porque tiene diagnósticos o tratamientos asociados. Elimina esos registros primero.');
+            }
+            throw $e;
+        }
     }
 }

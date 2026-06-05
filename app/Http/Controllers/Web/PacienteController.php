@@ -67,9 +67,18 @@ class PacienteController extends Controller
 
     public function destroy(Paciente $paciente)
     {
-        $paciente->delete();
+        try {
+            $paciente->delete();
 
-        return redirect()->route('pacientes.index')
-            ->with('success', 'Paciente eliminado exitosamente');
+            return redirect()->route('pacientes.index')
+                ->with('success', 'Paciente eliminado exitosamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle FK constraint violation
+            if ($e->getCode() == '23000') {
+                return redirect()->route('pacientes.index')
+                    ->with('error', 'No se puede eliminar este paciente porque tiene registros relacionados (citas, diagnósticos, etc.). Elimina esos registros primero.');
+            }
+            throw $e;
+        }
     }
 }

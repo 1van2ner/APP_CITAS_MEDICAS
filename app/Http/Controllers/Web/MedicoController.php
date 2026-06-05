@@ -67,9 +67,18 @@ class MedicoController extends Controller
 
     public function destroy(Medico $medico)
     {
-        $medico->delete();
+        try {
+            $medico->delete();
 
-        return redirect()->route('medicos.index')
-            ->with('success', 'Médico eliminado exitosamente');
+            return redirect()->route('medicos.index')
+                ->with('success', 'Médico eliminado exitosamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle FK constraint violation
+            if ($e->getCode() == '23000') {
+                return redirect()->route('medicos.index')
+                    ->with('error', 'No se puede eliminar este médico porque tiene citas, diagnósticos o tratamientos asociados. Elimina esos registros primero.');
+            }
+            throw $e;
+        }
     }
 }

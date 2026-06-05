@@ -75,9 +75,18 @@ class TratamientoController extends Controller
 
     public function destroy(Tratamiento $tratamiento)
     {
-        $tratamiento->delete();
+        try {
+            $tratamiento->delete();
 
-        return redirect()->route('tratamientos.index')
-            ->with('success', 'Tratamiento eliminado exitosamente');
+            return redirect()->route('tratamientos.index')
+                ->with('success', 'Tratamiento eliminado exitosamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle FK constraint violation
+            if ($e->getCode() == '23000') {
+                return redirect()->route('tratamientos.index')
+                    ->with('error', 'No se puede eliminar este tratamiento porque tiene medicamentos asociados. Elimina los medicamentos primero.');
+            }
+            throw $e;
+        }
     }
 }

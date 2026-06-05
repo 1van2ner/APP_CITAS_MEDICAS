@@ -75,9 +75,18 @@ class MedicamentoController extends Controller
 
     public function destroy(Medicamento $medicamento)
     {
-        $medicamento->delete();
+        try {
+            $medicamento->delete();
 
-        return redirect()->route('medicamentos.index')
-            ->with('success', 'Medicamento eliminado exitosamente');
+            return redirect()->route('medicamentos.index')
+                ->with('success', 'Medicamento eliminado exitosamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle FK constraint violation
+            if ($e->getCode() == '23000') {
+                return redirect()->route('medicamentos.index')
+                    ->with('error', 'No se puede eliminar este medicamento porque está siendo utilizado. Verifica otros registros relacionados.');
+            }
+            throw $e;
+        }
     }
 }

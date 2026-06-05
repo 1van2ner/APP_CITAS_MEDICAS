@@ -75,9 +75,18 @@ class DiagnosticoController extends Controller
 
     public function destroy(Diagnostico $diagnostico)
     {
-        $diagnostico->delete();
+        try {
+            $diagnostico->delete();
 
-        return redirect()->route('diagnosticos.index')
-            ->with('success', 'Diagnóstico eliminado exitosamente');
+            return redirect()->route('diagnosticos.index')
+                ->with('success', 'Diagnóstico eliminado exitosamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle FK constraint violation
+            if ($e->getCode() == '23000') {
+                return redirect()->route('diagnosticos.index')
+                    ->with('error', 'No se puede eliminar este diagnóstico porque tiene tratamientos asociados. Elimina los tratamientos primero.');
+            }
+            throw $e;
+        }
     }
 }
