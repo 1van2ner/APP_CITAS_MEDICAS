@@ -7,12 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diagnostico extends Model
 {
-    /** @use HasFactory<\Database\Factories\DiagnosticoFactory> */
     use HasFactory;
 
-    protected $table = 'diagnostico';
-    protected $primaryKey = 'diagnostico_id';
-
+    protected $table = 'diagnosticos';
     protected $fillable = [
         'descripcion',
         'fecha',
@@ -23,14 +20,22 @@ class Diagnostico extends Model
         'tipo_diagnostico'
     ];
 
+    protected $casts = [
+        'fecha' => 'datetime',
+    ];
+
     public function paciente()
     {
-        return $this->belongsTo(Paciente::class, 'paciente_id','paciente_id');
+        return $this->belongsTo(Paciente::class);
     }
 
     public function medico()
     {
-        return $this->belongsTo(Medico::class, 'medico_id','medico_id');
+        return $this->belongsTo(Medico::class);
     }
 
+    public function tratamientos()
+    {
+        return $this->hasMany(Tratamiento::class);
+    }
 }

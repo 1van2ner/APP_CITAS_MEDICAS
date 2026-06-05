@@ -7,19 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
 {
-    /** @use HasFactory<\Database\Factories\PacienteFactory> */
     use HasFactory;
 
-    protected $table = 'paciente';
-    protected $primaryKey = 'paciente_id';
-
+    protected $table = 'pacientes';
     protected $fillable = [
         'nombre',
         'apellido',
-        'fecha_nacimieto',
+        'fecha_nacimiento',
         'genero',
         'telefono',
         'direccion',
-        'tipo_sangre'
+        'tipo_sangre',
     ];
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
+    public function diagnosticos()
+    {
+        return $this->hasMany(Diagnostico::class);
+    }
+
+    public function tratamientos()
+    {
+        return $this->hasMany(Tratamiento::class);
+    }
 }

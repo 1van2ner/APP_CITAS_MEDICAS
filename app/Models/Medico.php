@@ -7,12 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medico extends Model
 {
-    /** @use HasFactory<\Database\Factories\MedicoFactory> */
     use HasFactory;
 
-    protected $table = 'medico';
-    protected $primaryKey = 'medico_id';
-
+    protected $table = 'medicos';
     protected $fillable = [
         'nombre',
         'apellido',
@@ -20,6 +17,11 @@ class Medico extends Model
         'telefono',
         'email',
         'licencia',
-        'años_experiencia'
+        'años_experiencia',
     ];
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
 }

@@ -7,12 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tratamiento extends Model
 {
-    /** @use HasFactory<\Database\Factories\TratamientoFactory> */
     use HasFactory;
 
-    protected $table = 'tratamiento';
-    protected $primaryKey = 'tratamiento_id';
-
+    protected $table = 'tratamientos';
     protected $fillable = [
         'nombre',
         'descripcion',
@@ -23,13 +20,18 @@ class Tratamiento extends Model
         'frecuencia_administracion'
     ];
 
-    public function Diagnostico()
+    public function diagnostico()
     {
-        return $this->belongsTo(Diagnostico::class, 'diagnostico_id','diagnostico_id');
+        return $this->belongsTo(Diagnostico::class);
     }
 
-    public function Medico()
+    public function medico()
     {
-        return $this->belongsTo(Medico::class, 'medico_id','medico_id');
+        return $this->belongsTo(Medico::class);
+    }
+
+    public function medicamentos()
+    {
+        return $this->hasMany(Medicamento::class);
     }
 }
